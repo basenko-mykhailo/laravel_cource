@@ -1,0 +1,27 @@
+0. Stop all docker containers
+   docker stop $(docker ps -a -q)
+1. Run/build docker containers
+   docker compose up -d --build
+2. Check if all containers up
+   docker compose ps
+   (you see: all containers up)
+3. Move into php docker container
+   docker compose exec php bash
+ 3.1 Create laravel project into current directory ( . )
+     composer create-project laravel/laravel .
+ 3.2 copy .env from root directory
+ 3.3 After change .env down/up docker compose
+     docker compose down
+     docker composer up -d
+ 3.4 Make migration (create based DB tables)
+     docker compose exec php bash
+     php artisan migrate
+
+4. Update permissions (user your user)
+   sudo chown -R user:user src
+   sudo chmod -R 0777 src/storage
+
+4. TEst site http://localhost:8080
+
+
+
