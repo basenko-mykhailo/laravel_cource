@@ -10,9 +10,4 @@ class Author extends Model
 {
     /** @use HasFactory<\Database\Factories\AuthorFactory> */
     use HasFactory;
-
-    public function posts(): HasMany
-    {
-        return $this->hasMany(Post::class);
-    }
 }

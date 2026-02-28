@@ -15,10 +15,21 @@ class PostController extends Controller
      */
     public function index()
     {
-        $post = Post::all()->last();
-        $posts = $post->category()->get();
+        $author_id = 1;
+        // $posts = Post::where....
+        //dump($posts);
 
-        return view('posts.index', ['posts' => $posts]);
+        $author_id = 2;
+        // $posts = Author...
+        // dump($posts);
+
+
+        $author_id = 3;
+        // вивести всі чорновики (status draft) постів автора 3
+        // $posts = Author...
+        // dump($posts);
+
+        dd('Done!');
     }
 
     /**
