@@ -8,13 +8,12 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<div class="card" style="width: 100rem;">
-    <div class="card-body">
-        <h5 class="card-title">{{ $post->title }}</h5>
-        <h5 class="card-title">COUNTER: {{ $post->view_counter }} Category: {{ $post->category_id  }} </h5>
 
-        <p class="card-text">{{ $post->body }}</p>
-    </div>
+<h3>Categories</h3>
+<div class="list-group">
+    @foreach($categories as $category)
+        <a href="{{ route('posts.index', ['category_id' => $category->id] )  }}" class="list-group-item list-group-item-action"> {{ $category->name }} Post: {{ $category->posts_count }} </a>
+    @endforeach
 </div>
 
 <!-- Bootstrap Bundle with Popper -->

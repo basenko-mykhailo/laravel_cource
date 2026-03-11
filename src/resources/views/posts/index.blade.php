@@ -13,7 +13,8 @@
 <div class="card" style="width: 80rem;">
     @foreach($posts as $post)
         <div class="card-body">
-            <h5 class="card-title">{{ $post->title }}</h5>
+            <h5 class="card-title">{{ $post->title }} {{ $post->view_counter }} </h5>
+            <h6 class="card-title">{{ $post->category_id }}</h6>
             <p class="card-text">{{ $post->body }}</p>
             <a href="{{ route('posts.show', ['id' => $post->id] )  }}" class="btn btn-primary">Go to post</a>
         </div>

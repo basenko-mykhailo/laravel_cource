@@ -11,14 +11,23 @@ use Illuminate\Http\Request;
 class PostController extends Controller
 {
     /**
+     * GET /posts
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $post = Post::all()->last();
-        $posts = $post->category()->get();
+        $query = Post::query();
+        if ($request->filled('category_id')) {
+            $query->where('category_id', $request->category_id);
+        }
 
-        return view('posts.index', ['posts' => $posts]);
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+
+        $query->orderBy('view_counter', 'desc');
+
+        return view('posts.index', ['posts' => $query->get()]);
     }
 
     /**
@@ -26,7 +35,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('posts.create', ['categories' => Category::all()]);
     }
 
     /**
@@ -34,7 +43,9 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $post = Post::create($request->all());
+
+        return redirect()->route('posts.show', $post);
     }
 
     /**
@@ -43,9 +54,9 @@ class PostController extends Controller
     public function show(string $id)
     {
        $post = Post::find($id);
-       $comments =$post->comments()->get();
+       $post->increment('view_counter');
 
-       return view('posts.show', ['post' => $post, 'comments' => $comments]);
+       return view('posts.show', ['post' => $post]);
     }
 
     /**
